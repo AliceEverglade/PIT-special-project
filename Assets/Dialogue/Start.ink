@@ -1,20 +1,28 @@
--> main
+INCLUDE Globals.ink
+
+#speaker:Narrator #layout:Right
+{ PlayerName == "": -> main | -> alreadyChosen}
 
 === main ===
 This is the start of this story.
-it's a very good story.
-so once upon a time there was a...
-I forgot, can you remind me?
+It's a very good story.
+So once upon a time there was a...
+I forgot, can you remind me who you are?
     * [a princess in a tower]
-        -> chosen("Rapunzel and her trusted pan")
+        -> chosen("Rapunzel")
     * [a man who got reincarnated as a slime]
-        -> chosen("Rimuru and his village")
+        -> chosen("Rimuru")
     * [a girl who got chased by her ancestor for a ritual]
-        -> chosen("Stella, the starborn child")
+        -> chosen("Stella")
 
 
 === chosen(choice) ===
-ah right right, {choice}. how could I forget.
-they lived happily ever after!
-the end :3
+Ah right right, {choice}. how could I forget.
+~ PlayerName = choice
+The story hasn't ended yet, go on and write the rest.
+-> END
+
+=== alreadyChosen ===
+Hi {PlayerName}, I'm sorry I'm quite busy right now.
+Could you come back later?
 -> END
