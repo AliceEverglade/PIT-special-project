@@ -11,7 +11,7 @@ public class DialogueManager : MonoBehaviour
 {
     public static DialogueManager Instance { get; private set; }
     private const string SPEAKER_TAG = "speaker";
-    private const string PORTRAIT_TAG = "portrait";
+    private const string EMOTION_TAG = "emotion";
     private const string LAYOUT_TAG = "layout";
     private const string ENCOUNTER_TAG = "encounter";
     private DialogueVariables dialogueVariables;
@@ -204,6 +204,7 @@ public class DialogueManager : MonoBehaviour
 
     private void HandleTags(List<string> currentTags)
     {
+        CharacterData speaker = CharacterLibrary.Instance.MainCharacter.data;
         foreach (string tag in currentTags)
         {
             string[] splitTag = tag.Split(':');
@@ -217,10 +218,11 @@ public class DialogueManager : MonoBehaviour
             switch (tagKey)
             {
                 case SPEAKER_TAG:
-                    displayNameText.text = tagValue;
+                    speaker = CharacterLibrary.Instance.GetCharacter(tagValue);
+                    displayNameText.text = speaker.CharacterName;
                     break;
-                case PORTRAIT_TAG:
-                    portraitAnimator.Play(tagValue);
+                case EMOTION_TAG:
+                    portraitAnimator.Play(speaker.GetPortrait(CharacterLibrary.Instance.GetEmotion(tagValue)));
                     break;
                 case LAYOUT_TAG:
                     layoutAnimator.Play(tagValue);

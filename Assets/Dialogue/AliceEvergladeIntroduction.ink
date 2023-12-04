@@ -1,5 +1,5 @@
 INCLUDE Globals.ink
-Hi there {PlayerName}! #speaker:Alice Everglade #portrait:AliceEvergladeNeutral 
+Hi there {PlayerName}! #speaker:Alice_E #emotion:Neutral 
 #encounter:AliceIntroduction,TalkedToAlice
 -> main
 

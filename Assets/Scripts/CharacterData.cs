@@ -1,3 +1,4 @@
+using EasyButtons;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,7 +7,7 @@ using UnityEngine;
 public class CharacterData : ScriptableObject
 {
     public string ID;
-    [HideInInspector] public string Name => characterName;
+    public string Name => characterName;
     [SerializeField] private string characterName;
     public string CharacterName
     {
@@ -32,13 +33,21 @@ public class CharacterData : ScriptableObject
         Pouting
     }
 
+    [Button]
+    private void SetEmotionNames()
+    {
+        foreach (EmotionProfile emotion in emotionProfiles)
+        {
+            emotion.Name = emotion.emotion.ToString();
+        }
+    }
     public string GetPortrait(Emotion emotion)
     {
         foreach (EmotionProfile profile in emotionProfiles)
         {
             if(profile.emotion == emotion)
             {
-                return profile.portrait;
+                return profile.Portrait;
             }
         }
         return null;
@@ -50,20 +59,20 @@ public class CharacterData : ScriptableObject
         {
             if (profile.emotion == emotion)
             {
-                return profile.audioProfile;
+                return profile.AudioProfile;
             }
         }
         return null;
     }
-
 }
 
 [System.Serializable]
 public class EmotionProfile
 {
+    [HideInInspector] public string Name;
     public CharacterData.Emotion emotion;
-    public string portrait;
-    public AudioProfile audioProfile;
+    public string Portrait;
+    public AudioProfile AudioProfile;
 }
 
 [System.Serializable]
