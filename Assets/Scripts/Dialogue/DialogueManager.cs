@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,12 +13,13 @@ public class DialogueManager : MonoBehaviour
     private const string SPEAKER_TAG = "speaker";
     private const string PORTRAIT_TAG = "portrait";
     private const string LAYOUT_TAG = "layout";
+    private const string ENCOUNTER_TAG = "encounter";
     private DialogueVariables dialogueVariables;
 
     [Header("Load Globals Json")]
     [SerializeField] private TextAsset loadGlobalsJson;
 
-
+    #region Settings
     [Header("Dialogue UI")]
     [SerializeField] private GameObject dialoguePanel;
     [SerializeField] private GameObject continueIcon;
@@ -31,10 +33,21 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private GameObject choicePrefab;
     [SerializeField] private List<GameObject> choiceList;
 
+    [Header("Audio")]
+    [SerializeField] private List<AudioClip> dialogueTypingSoundClips;
+    private AudioSource audioSource;
+    [SerializeField] private bool stopAudioSource;
+    [Range(1,5)]
+    [SerializeField] private int dialogueAudioFrequency;
+    [Range(-3, 3)]
+    [SerializeField] private float minPitch = 0.5f;
+    [Range(-3, 3)]
+    [SerializeField] private float maxPitch = 3f;
+
     [Header("DialogueControls")]
     [SerializeField, Range(0.1f, 1000f)] private float textSpeed = 40;
     private bool canContinueToNextLine = false;
-
+    #endregion
 
     private Story currentStory;
 
@@ -42,6 +55,7 @@ public class DialogueManager : MonoBehaviour
 
     private Coroutine displayLineCoroutine;
 
+    #region Start and Awake
     private void Awake()
     {
         if(Instance != null)
@@ -52,6 +66,7 @@ public class DialogueManager : MonoBehaviour
         Debug.Log("Instance Set");
 
         dialogueVariables = new DialogueVariables(loadGlobalsJson);
+        audioSource = gameObject.AddComponent<AudioSource>(); // convert to audio handler singleton in the future
     }
 
     private void Start()
@@ -60,6 +75,7 @@ public class DialogueManager : MonoBehaviour
         DialogueIsPlaying = false;
         dialoguePanel.SetActive(false);
     }
+    #endregion
 
     private void Update()
     {
@@ -67,12 +83,13 @@ public class DialogueManager : MonoBehaviour
 
         if (canContinueToNextLine && 
             currentStory.currentChoices.Count == 0 && 
-            (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Space))) //simplify
+            (Input.GetKeyDown(KeyCode.Space))) //change out for something proper
         {
             ContinueStory();
         }
     }
 
+    #region Enter, Continue and Exit dialogue mode
     public void EnterDialogueMode(TextAsset inkJson)
     {
         currentStory = new Story(inkJson.text);
@@ -112,7 +129,9 @@ public class DialogueManager : MonoBehaviour
             StartCoroutine(ExitDialogueMode());
         }
     }
+    #endregion
 
+    #region Dialogue functionality
     private IEnumerator DisplayLine(string line)
     {
         dialogueText.text = line;
@@ -124,7 +143,7 @@ public class DialogueManager : MonoBehaviour
         bool isAddingRichTextTag = false;
         foreach(char letter in line)
         {
-            if(Input.GetKeyDown(KeyCode.F) || Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return)) // simplify
+            if(Input.GetKeyDown(KeyCode.Return)) // change out controls for something proper
             {
                 dialogueText.maxVisibleCharacters = line.Length;
                 break;
@@ -140,7 +159,9 @@ public class DialogueManager : MonoBehaviour
             }
             else
             {
+                PlayDialogueSound(dialogueText.maxVisibleCharacters, dialogueText.text[dialogueText.maxVisibleCharacters]);
                 dialogueText.maxVisibleCharacters++;
+                
                 yield return new WaitForSeconds(textSpeed / 1000);
             }
 
@@ -149,6 +170,36 @@ public class DialogueManager : MonoBehaviour
         continueIcon.SetActive(true);
         DisplayChoices();
         canContinueToNextLine = true;
+    }
+
+    private void PlayDialogueSound(int currentDisplayedCharacterCount, char currentCharacter)
+    {
+        if(currentDisplayedCharacterCount % dialogueAudioFrequency == 0)
+        {
+            if (stopAudioSource)
+            {
+                audioSource.Stop();
+            }
+            AudioClip audioClip = null;
+            int hashCode = currentCharacter.GetHashCode();
+            int index = hashCode % dialogueTypingSoundClips.Count;
+            audioClip = dialogueTypingSoundClips[index];
+
+            int minPitchInt = (int)(minPitch * 100);
+            int maxPitchInt = (int)(maxPitch * 100);
+            int pitchRangeInt = maxPitchInt - minPitchInt;
+            if (pitchRangeInt != 0)
+            {
+                int pitchInt = (hashCode % pitchRangeInt) + minPitchInt;
+                float pitch = pitchInt / 100f;
+            }
+            else
+            {
+                audioSource.pitch = minPitch;
+            }
+
+            audioSource.PlayOneShot(audioClip);
+        }
     }
 
     private void HandleTags(List<string> currentTags)
@@ -174,6 +225,13 @@ public class DialogueManager : MonoBehaviour
                 case LAYOUT_TAG:
                     layoutAnimator.Play(tagValue);
                     break;
+                case ENCOUNTER_TAG:
+                    string[] splitId = tagValue.Split(",");
+                    if (splitId.Length == 2)
+                    {
+                        EncounterManager.Instance.ActivateEncounter(splitId[0].Trim(), splitId[1].Trim());
+                    }
+                    break;
                 default:
                     Debug.LogError("Tag came in but isn't currently handled: " + tag);
                     break;
@@ -181,6 +239,7 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
+    #region Choice functionality
     private void DisplayChoices()
     {
         List<Choice> choices = currentStory.currentChoices;
@@ -221,6 +280,9 @@ public class DialogueManager : MonoBehaviour
         yield return new WaitForEndOfFrame();
         EventSystem.current.SetSelectedGameObject(first);
     }
+    #endregion
+
+    #endregion
 
     public Ink.Runtime.Object GetVariableState(string variableName)
     {

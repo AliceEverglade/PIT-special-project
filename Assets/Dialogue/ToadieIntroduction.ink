@@ -1,12 +1,12 @@
 -> toadie_main
 === toadie_main ===
-Oh, hey, what's up? #speaker:Toadie #portrait:ToadieNeutral #layout:right
+Oh, hey, what's up? #speaker:Toadie #portrait:ToadieNeutral #layout:right #encounter:ToadieIntroduction,TalkedToToadie
 What, Alice?
 Yeah, I've got her fixing my code again.
 She's great.
 Sometimes a little blind, but that's what I'm here for.
 Y'know... as opposed to doing it myself!
-It'd help if you actually let me do my work for once. #speaker:Alice Everglade #portrait:AliceEvergladeNeutral
+It'd help if you actually let me do my work for once. #speaker:Alice Everglade #portrait:AliceEvergladeNeutral #encounter:AliceIntroduction,HeardAliceSpeak
 Nahhhhhh, you don't need to focus on that! #speaker:Toadie #portrait:ToadieNeutral
 Anyways...
 -> toadie_question

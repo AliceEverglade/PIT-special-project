@@ -1,6 +1,6 @@
 INCLUDE Globals.ink
 
-#speaker:Narrator #layout:Right
+#speaker:Narrator #layout:Right #encounter:Introduction,TalkedToNarrator
 { PlayerName == "": -> main | -> alreadyChosen}
 
 === main ===
@@ -17,7 +17,7 @@ I forgot, can you remind me who you are?
 
 
 === chosen(choice) ===
-Ah right right, {choice}. how could I forget.
+Ah right right, {choice}. how could I forget. #encounter:Introduction,ChoseName
 ~ PlayerName = choice
 The story hasn't ended yet, go on and write the rest.
 -> END
