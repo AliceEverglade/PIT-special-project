@@ -4,19 +4,9 @@ using UnityEngine;
 using EasyButtons;
 
 [CreateAssetMenu(menuName ="Data/EncounterLibrary")]
-public class EncounterLibrary : ScriptableObject
+public class EncounterLibrary : ScriptableSingleton<EncounterLibrary>
 {
     public List<Encounter> Encounters;
-
-    #region instance
-    public static EncounterLibrary Instance;
-
-    [Button]
-    public void SetInstance()
-    {
-        Instance = this;
-    }
-    #endregion
 
     public Encounter GetEncounterByID(string id)
     {

@@ -5,17 +5,10 @@ using EasyButtons;
 using UnityEngine.Rendering.Universal;
 
 [CreateAssetMenu(menuName = "Data/CharacterLibrary")]
-public class CharacterLibrary : ScriptableObject
+public class CharacterLibrary : ScriptableSingleton<CharacterLibrary>
 {
-    public static CharacterLibrary Instance;
     public Character MainCharacter;
     public List<Character> Characters;
-
-    [Button]
-    private void SetInstance()
-    {
-        Instance = this;
-    }
 
     public CharacterData GetCharacter(string id)
     {

@@ -2449,6 +2449,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1867718871}
+  - component: {fileID: 1867718872}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -2473,6 +2474,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1867718872
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1867718870}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 691d3925d8e410445820e6831ea77b67, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  encounterLibrary: {fileID: 11400000, guid: 6fd91499b02e50c4eae80470d5ce6c00, type: 2}
+  characterLibrary: {fileID: 11400000, guid: 4803f6221fd6ec54fa0b65209ec7c380, type: 2}
 --- !u!1 &1882782990
 GameObject:
   m_ObjectHideFlags: 0
