@@ -9,5 +9,9 @@ public abstract class ScriptableSingleton<T> : ScriptableObject where T : Script
     public void SetInstance()
     {
         Instance = (T)this;
+        if(Instance == null)
+        {
+            Debug.LogError("assignment of instance faled in " + this.name);
+        }
     }
 }
