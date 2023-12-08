@@ -182,8 +182,18 @@ public class DialogueManager : MonoBehaviour
             }
             AudioClip audioClip = null;
             int hashCode = currentCharacter.GetHashCode();
-            int index = hashCode % dialogueSoundClips.Count;
-            audioClip = dialogueSoundClips[index];
+            int index = 1;
+            if(dialogueSoundClips.Count > 0)
+            {
+                index = hashCode % dialogueSoundClips.Count;
+                audioClip = dialogueSoundClips[index];
+            }
+            else
+            {
+                audioClip = CharacterLibrary.Instance.GetCharacter("Default").GetAudioProfile(CharacterData.Emotion.Neutral).clips[0];
+            }
+            
+            
 
             int minPitchInt = (int)(minPitch * 100);
             int maxPitchInt = (int)(maxPitch * 100);

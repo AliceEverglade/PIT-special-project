@@ -39,13 +39,15 @@ public class DialogueVariables
         }
     }
     #region Get and Set
-    public Ink.Runtime.Object GetVariable(string name)
+    /*public T GetVariable<T>(string name)
     {
-        return variables[name];
-    }
+        T variable = default(T);
+        Ink.Runtime.Object variableObject = variables[name];
+        variable = variableObject
+    }*/
     public void SetVariable<T>(string name, T value)
     {
-
+        
     }
     #endregion
 

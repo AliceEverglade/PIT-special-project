@@ -17,7 +17,7 @@ MonoBehaviour:
   emotionProfiles:
   - Name: Neutral
     emotion: 0
-    Portrait: 
+    Portrait: ToadieNeutral
     AudioProfile:
       DialogueAudioFrequency: 2
       MinPitch: 0.5

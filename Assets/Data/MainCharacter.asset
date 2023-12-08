@@ -15,7 +15,11 @@ MonoBehaviour:
   ID: MainCharacter
   characterName: 
   emotionProfiles:
-  - emotion: 0
-    portrait: Default
-    audioProfile:
+  - Name: 
+    emotion: 0
+    Portrait: Default
+    AudioProfile:
+      DialogueAudioFrequency: 2
+      MinPitch: 0.5
+      MaxPitch: 3
       clips: []

@@ -1,6 +1,6 @@
 INCLUDE Globals.ink
-Hi there {PlayerName}! #speaker:Alice_E #emotion:Neutral 
-#encounter:AliceIntroduction,TalkedToAlice
+Hi there {PlayerName}! #speaker: Alice_E #emotion: Neutral 
+#encounter: AliceIntroduction,TalkedToAlice
 -> main
 
 === main ===
@@ -14,7 +14,8 @@ how are you doing today?
 
 - Anyhow, I should get back to work. goodluck today! :D
 
-ALIIIIICE I need you to help me fix something and by help i mean do it for me!!! #speaker:Toadie #portrait:ToadieNeutral #encounter:ToadieIntroduction,HeardToadieSpeak
+ALIIIIICE I need you to help me fix something and by help i mean do it for me!!! #speaker: Toadie #emotion: Neutral #encounter:ToadieIntroduction,HeardToadieSpeak
 
-Yes yes I'll be there in a second! Sorry, really need to get back to work. speak to you later {PlayerName}! #speaker:Alice_E #emotion:Neutral 
+Yes yes I'll be there in a second! Sorry, really need to get back to work. speak to you later {PlayerName}! #speaker:Alice_E #emotion:Neutral
+(note to self, ask the Ink discord about getting a variable from a runtime object.)
 -> END

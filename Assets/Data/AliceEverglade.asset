@@ -17,7 +17,7 @@ MonoBehaviour:
   emotionProfiles:
   - Name: Happy
     emotion: 0
-    Portrait: 
+    Portrait: AliceEvergladeNeutral
     AudioProfile:
       DialogueAudioFrequency: 2
       MinPitch: 0.5

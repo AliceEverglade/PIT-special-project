@@ -31,7 +31,7 @@ public class CharacterLibrary : ScriptableSingleton<CharacterLibrary>
                 }
             }
         }
-        return null;
+        return DefaultCharacter.data;
     }
 
     public CharacterData.Emotion GetEmotion(string name)
