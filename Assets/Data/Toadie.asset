@@ -12,6 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89bfdd9ce26da2744b5a3f62130bed7c, type: 3}
   m_Name: Toadie
   m_EditorClassIdentifier: 
-  ID: 
-  characterName: 
-  emotionProfiles: []
+  ID: Toadie
+  characterName: Toadie
+  emotionProfiles:
+  - Name: Neutral
+    emotion: 0
+    Portrait: 
+    AudioProfile:
+      DialogueAudioFrequency: 2
+      MinPitch: 0.5
+      MaxPitch: 3
+      clips:
+      - {fileID: 8300000, guid: 90268ce44eba2be4895de75d3d655190, type: 3}
+      - {fileID: 8300000, guid: f28b3adaf5792924b86045083258c2df, type: 3}
+      - {fileID: 8300000, guid: 0ce8d0d7bad5da749a382483b75df257, type: 3}

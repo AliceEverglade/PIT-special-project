@@ -8,19 +8,24 @@ using UnityEngine.Rendering.Universal;
 public class CharacterLibrary : ScriptableSingleton<CharacterLibrary>
 {
     public Character MainCharacter;
+    public Character DefaultCharacter;
     public List<Character> Characters;
 
     public CharacterData GetCharacter(string id)
     {
-        if(MainCharacter.data.ID == id)
+        if(MainCharacter.data.ID.ToLower() == id.ToLower())
         {
             return MainCharacter.data;
+        }
+        else if (DefaultCharacter.data.ID.ToLower() == id.ToLower())
+        {
+            return DefaultCharacter.data;
         }
         else
         {
             foreach(Character character in Characters)
             {
-                if(character.data.ID == id)
+                if(character.data.ID.ToLower() == id.ToLower())
                 {
                     return character.data;
                 }

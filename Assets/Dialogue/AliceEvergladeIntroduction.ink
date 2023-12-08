@@ -16,5 +16,5 @@ how are you doing today?
 
 ALIIIIICE I need you to help me fix something and by help i mean do it for me!!! #speaker:Toadie #portrait:ToadieNeutral #encounter:ToadieIntroduction,HeardToadieSpeak
 
-Yes yes I'll be there in a second! Sorry, really need to get back to work. speak to you later {PlayerName}! #speaker:Alice Everglade #portrait:AliceEvergladeNeutral
+Yes yes I'll be there in a second! Sorry, really need to get back to work. speak to you later {PlayerName}! #speaker:Alice_E #emotion:Neutral 
 -> END

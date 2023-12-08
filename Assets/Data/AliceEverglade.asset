@@ -15,7 +15,14 @@ MonoBehaviour:
   ID: Alice_E
   characterName: Alice Everglade
   emotionProfiles:
-  - emotion: 0
-    portrait: AliceEvergladeNeutral
-    audioProfile:
-      clips: []
+  - Name: Happy
+    emotion: 0
+    Portrait: 
+    AudioProfile:
+      DialogueAudioFrequency: 2
+      MinPitch: 0.5
+      MaxPitch: 3
+      clips:
+      - {fileID: 8300000, guid: e5d9d93c06b7af54d86858a49f07a20b, type: 3}
+      - {fileID: 8300000, guid: 397bb6f5eff80ab48afd1bcf11ef84c3, type: 3}
+      - {fileID: 8300000, guid: 42ba5497eed1dbf40aa5bb60058e6762, type: 3}

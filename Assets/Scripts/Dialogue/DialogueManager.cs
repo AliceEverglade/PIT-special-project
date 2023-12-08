@@ -34,7 +34,7 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private List<GameObject> choiceList;
 
     [Header("Audio")]
-    [SerializeField] private List<AudioClip> dialogueTypingSoundClips;
+    [SerializeField] private List<AudioClip> dialogueSoundClips;
     private AudioSource audioSource;
     [SerializeField] private bool stopAudioSource;
     [Range(1,5)]
@@ -182,8 +182,8 @@ public class DialogueManager : MonoBehaviour
             }
             AudioClip audioClip = null;
             int hashCode = currentCharacter.GetHashCode();
-            int index = hashCode % dialogueTypingSoundClips.Count;
-            audioClip = dialogueTypingSoundClips[index];
+            int index = hashCode % dialogueSoundClips.Count;
+            audioClip = dialogueSoundClips[index];
 
             int minPitchInt = (int)(minPitch * 100);
             int maxPitchInt = (int)(maxPitch * 100);
@@ -217,16 +217,28 @@ public class DialogueManager : MonoBehaviour
 
             switch (tagKey)
             {
+                //speaker code (set speaker specific variables)
                 case SPEAKER_TAG:
                     speaker = CharacterLibrary.Instance.GetCharacter(tagValue);
+                    SetEmotionVariables(speaker, "Neutral");
                     displayNameText.text = speaker.CharacterName;
                     break;
+
+
+                //emotion code (set the portrait based on the speaker
                 case EMOTION_TAG:
-                    portraitAnimator.Play(speaker.GetPortrait(CharacterLibrary.Instance.GetEmotion(tagValue)));
+                    SetEmotionVariables(speaker, tagValue);
                     break;
+
+                //UI layout code
                 case LAYOUT_TAG:
                     layoutAnimator.Play(tagValue);
                     break;
+
+                // custom tags, make sure to add the tag to the top of the script as a const and have the value be all lower case,
+                // you can use lower and upper case in the ink file
+
+                //encounter code
                 case ENCOUNTER_TAG:
                     string[] splitId = tagValue.Split(",");
                     if (splitId.Length == 2)
@@ -234,10 +246,30 @@ public class DialogueManager : MonoBehaviour
                         EncounterManager.Instance.ActivateEncounter(splitId[0].Trim(), splitId[1].Trim());
                     }
                     break;
+
+
                 default:
                     Debug.LogError("Tag came in but isn't currently handled: " + tag);
                     break;
             }
+        }
+    }
+
+    void SetEmotionVariables(CharacterData speaker, string emotionText)
+    {
+        portraitAnimator.Play("Default");
+        portraitAnimator.Play(speaker.GetPortrait(CharacterLibrary.Instance.GetEmotion(emotionText)));
+        AudioProfile speakerProfile = speaker.GetAudioProfile(CharacterLibrary.Instance.GetEmotion(emotionText));
+        minPitch = speakerProfile.MinPitch;
+        maxPitch = speakerProfile.MaxPitch;
+        dialogueAudioFrequency = speakerProfile.DialogueAudioFrequency;
+        if(speakerProfile.clips.Count > 0)
+        {
+            dialogueSoundClips = speakerProfile.clips;
+        }
+        else
+        {
+            dialogueSoundClips = CharacterLibrary.Instance.GetCharacter("Default").GetAudioProfile(CharacterLibrary.Instance.GetEmotion(emotionText)).clips;
         }
     }
 

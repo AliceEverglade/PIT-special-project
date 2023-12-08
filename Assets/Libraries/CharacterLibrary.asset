@@ -12,5 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1f9b50c0467a51499765daaada88d76, type: 3}
   m_Name: CharacterLibrary
   m_EditorClassIdentifier: 
-  MainCharacter: {fileID: 11400000, guid: fae515708df884d4ba690b480c996444, type: 2}
-  Characters: []
+  MainCharacter:
+    data: {fileID: 11400000, guid: fae515708df884d4ba690b480c996444, type: 2}
+  DefaultCharacter:
+    data: {fileID: 11400000, guid: 6f837f5e07e44644688d2e2eb081ee90, type: 2}
+  Characters:
+  - data: {fileID: 11400000, guid: cfe2f5bee13b93441918f16fd1fa73b6, type: 2}
+  - data: {fileID: 11400000, guid: 355673eebd50e954aa7a3b90c7c2e353, type: 2}

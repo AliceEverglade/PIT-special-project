@@ -78,6 +78,12 @@ public class EmotionProfile
 [System.Serializable]
 public class AudioProfile
 {
+    [Range(1, 5)]
+    public int DialogueAudioFrequency = 2;
+    [Range(-3, 3)]
+    public float MinPitch = 0.5f;
+    [Range(-3, 3)]
+    public float MaxPitch = 3f;
     public List<AudioClip> clips;
 }
 
